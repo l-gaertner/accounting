@@ -1,3 +1,8 @@
+# nvim files
+.classpath
+.settings
+.project
+
 # Compiled class file
 *.class
 
