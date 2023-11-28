@@ -7,8 +7,6 @@ import org.hibernate.Session;
 
 import com.lgaertner.accounting.domain.Transaction;
 
-import jakarta.persistence.EntityManager;
-
 public class TransactionHibernateImpl implements Transaction {
 
 	Session session;
@@ -20,24 +18,34 @@ public class TransactionHibernateImpl implements Transaction {
 	@Override
 	@jakarta.transaction.Transactional
 	public <A> void execute(Consumer<A> function, A parameter) {
-		// var transaction = session.getTransaction();
-		// transaction.begin();
-		function.accept(parameter);
-		// transaction.commit();
+		session.getTransaction().begin();
+		try {
+			function.accept(parameter);
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			throw(e);
+		}
+		session.getTransaction().commit();
 	}
 
 	@Override
 	@jakarta.transaction.Transactional
 	public <A, B> B execute(Function<A, B> function, A parameter) {
-		// var transaction = session.getTransaction();
-		// transaction.begin();
-		var returnValue = function.apply(parameter); 
-		// transaction.commit();
+		B returnValue;
+
+		session.getTransaction().begin();
+		try {
+			returnValue = function.apply(parameter); 
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			throw(e);
+		}
+		session.getTransaction().commit();
+
 		return returnValue;
 	}
 
 	@Override
-	// @jakarta.transaction.Transactional
 	public void execute(Runnable function) {
 		session.getTransaction().begin();
 		try {

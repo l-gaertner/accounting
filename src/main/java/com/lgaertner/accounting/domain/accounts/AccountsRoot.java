@@ -25,6 +25,8 @@ public class AccountsRoot {
 	}
 
     public void addAccount(int id, int balance) {
-		repository.save(new Account(id, balance));
+		transaction.execute(() -> {
+			repository.save(new Account(id, balance));
+		});
     }
 }
