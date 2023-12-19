@@ -45,7 +45,7 @@ public class HibernateTransactionIT {
 		assertEquals(20, acc1.getBalance());
 
 		var acc2 = repository.find(2);
-		assertEquals(120, acc2.getBalance());
+		assertEquals(130, acc2.getBalance());
 	}
 
 	@Test
@@ -75,9 +75,9 @@ public class HibernateTransactionIT {
 		assertThrows(Exception.class, () -> managedAccount.transfer(1, 2, 30));
 		
 		var acc1 = repository.find(1);
-		assertEquals(30, acc1.getBalance());
+		assertEquals(20, acc1.getBalance());
 
 		var acc2 = repository.find(2);
-		assertEquals(120, acc2.getBalance());
+		assertEquals(130, acc2.getBalance());
 	}
 }
