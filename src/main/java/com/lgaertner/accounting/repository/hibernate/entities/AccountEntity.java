@@ -31,7 +31,7 @@ public class AccountEntity extends Account {
 
 	@Id
 	@Column(name="accountId")
-	protected void setAccountId(int accountId) {
+	public void setAccountId(int accountId) {
 		this.accountId = accountId;
 	}
 
@@ -41,7 +41,7 @@ public class AccountEntity extends Account {
 	}
 
 	@Column(name="balance")
-	protected void setBalance(int balance) {
+	public void setBalance(int balance) {
 		this.balance = balance;
 	}
 	

@@ -16,7 +16,6 @@ public class TransactionHibernateImpl implements Transaction {
 	}
 
 	@Override
-	@jakarta.transaction.Transactional
 	public <A> void execute(Consumer<A> function, A parameter) {
 		session.getTransaction().begin();
 		try {
@@ -29,7 +28,6 @@ public class TransactionHibernateImpl implements Transaction {
 	}
 
 	@Override
-	@jakarta.transaction.Transactional
 	public <A, B> B execute(Function<A, B> function, A parameter) {
 		B returnValue;
 
